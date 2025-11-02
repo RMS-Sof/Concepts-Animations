@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animations : By Prof. Rahul M. Samant | HOD-IT, NBNSTIC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .tree-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .tree {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .branch {
+            margin: 20px 0;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .branch::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            opacity: 0.3;
+        }
+
+        .branch-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #667eea;
+            cursor: pointer;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .branch-title:hover {
+            transform: translateX(10px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .branch-title::before {
+            content: '▶';
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .branch-title.active::before {
+            transform: rotate(90deg);
+        }
+
+        .sub-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+            padding-left: 20px;
+        }
+
+        .sub-menu.active {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .sub-item {
+            margin: 10px 0;
+            animation: slideIn 0.3s ease forwards;
+            opacity: 0;
+        }
+
+        .sub-menu.active .sub-item {
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        .sub-menu.active .sub-item:nth-child(1) { animation-delay: 0.1s; }
+        .sub-menu.active .sub-item:nth-child(2) { animation-delay: 0.2s; }
+        .sub-menu.active .sub-item:nth-child(3) { animation-delay: 0.3s; }
+
+        .sub-item a {
+            display: block;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(245, 87, 108, 0.3);
+        }
+
+        .sub-item a:hover {
+            transform: translateX(10px) scale(1.05);
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .tree {
+                padding: 20px;
+            }
+            .branch-title {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Animations By Prof. Rahul M. Samant | HOD-IT, NBNSTIC</h1>
+        <div class="subtitle">5 Subjects | Key concepts | Better understood through visualization</div>
+    </header>
+
+    <div class="tree-container">
+        <div class="tree">
+            <div class="branch">
+                <div class="branch-title" onclick="toggleBranch(this)">Deep Learning concepts</div>
+                <div class="sub-menu">
+                    <div class="sub-item"><a href="https://rms-sof.github.io/Activation-functions/" target="_blank">Activation Functions</a></div>
+                    <div class="sub-item"><a href="https://rms-sof.github.io/nn-types/" target="_blank">Neural Networks Types</a></div>
+                    <div class="sub-item"><a href="https://rms-sof.github.io/hyperparameters-tuning/" target="_blank">Hyper-parameters Tuning</a></div>
+		    <div class="sub-item"><a href="https://rms-sof.github.io/RNN/" target="_blank">RNN</a></div>  
+                </div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-title" onclick="toggleBranch(this)">Distributed Systems</div>
+                <div class="sub-menu">
+                    <div class="sub-item"><a href="" target="_blank">Distributed Recovery</a></div>
+                    <div class="sub-item"><a href="" target="_blank">Neural Networks Types</a></div>
+                    <div class="sub-item"><a href="" target="_blank">Hyper-parameters Tuning</a></div>
+		    <div class="sub-item"><a href="" target="_blank">RNN</a></div>  
+
+                </div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-title" onclick="toggleBranch(this)">Information Storage & Retrieval</div>
+                <div class="sub-menu">
+                    <div class="sub-item"><a href="https://rms-sof.github.io/IR-models/" target="_blank">IR Models</a></div>
+                    <div class="sub-item"><a href="https://rms-sof.github.io/IRS-Evaluation/" target="_blank">IR Systems Evaluations</a></div>
+                    <div class="sub-item"><a href="https://rms-sof.github.io/IRS-Evaluation/" target="_blank">Recommender Systems</a></div>
+                </div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-title" onclick="toggleBranch(this)">Smart Computing</div>
+                <div class="sub-menu">
+                    <div class="sub-item"><a href="https://rms-sof.github.io/MEMS-devices/" target="_blank">MEMS Devices</a></div>
+		    <div class="sub-item"><a href="https://rms-sof.github.io/Semsors/" target="_blank">Sensors</a></div>
+		    <div class="sub-item"><a href="https://rms-sof.github.io/Oxy-Aura-Projects/" target="_blank">Oxygen & Aura Projects</a></div>
+		    <div class="sub-item"><a href="https://rms-sof.github.io/Smart-Agriculture/" target="_blank">Smart Dust Project</a></div>
+		    <div class="sub-item"><a href="https://rms-sof.github.io/Smart-Agriculture/" target="_blank">Smart Agriculture Scenario</a></div>
+		    <div class="sub-item"><a href="https://rms-sof.github.io/Smart-Home/" target="_blank">Smart Home Visualization</a></div>                    
+                </div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-title" onclick="toggleBranch(this)"> Social Computing</div>
+                <div class="sub-menu">
+                    <div class="sub-item"><a href="https://rms-sof.github.io/Centrality/" target="_blank">Centrality</a></div>
+                    <div class="sub-item"><a href="https://rms-sof.github.io/HCB-Learning/" target="_blank">HCB Learning</a></div>
+		     <div class="sub-item"><a href="https://rms-sof.github.io/Homophily-Influence-Concept/" target="_blank">Homophily & Influence</a></div>
+		      <div class="sub-item"><a href="https://rms-sof.github.io/Information-Diffusion/" target="_blank">Information Diffusion in Socoal Media</a></div>
+		      <div class="sub-item"><a href="https://rms-sof.github.io/Social-media-behavior/" target="_blank">Social Media User Behaviour</a></div>
+		      <div class="sub-item"><a href="https://rms-sof.github.io/Web-page-mining/" target="_blank">Web Page Mining Process</a></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 By Prof. Rahul M. Samant for academic purpose.
+    </footer>
+
+    <script>
+        function toggleBranch(el) {
+            const subMenu = el.nextElementSibling;
+            const allTitles = document.querySelectorAll('.branch-title');
+            const allSubMenus = document.querySelectorAll('.sub-menu');
+            
+            // Close all other menus
+            allTitles.forEach(title => {
+                if (title !== el) {
+                    title.classList.remove('active');
+                }
+            });
+            
+            allSubMenus.forEach(menu => {
+                if (menu !== subMenu) {
+                    menu.classList.remove('active');
+                }
+            });
+            
+            // Toggle current menu
+            el.classList.toggle('active');
+            subMenu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
